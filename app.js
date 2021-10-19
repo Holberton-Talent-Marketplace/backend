@@ -1,5 +1,7 @@
 const express = require('express');
 const app = express()
+const { sequelize } = require('./models');
+
 app.use(express.json())
 
 // holbies endpoints
@@ -22,4 +24,6 @@ app.use('/', require('./routes/holbie_list'))
 
 app.listen({ port: 5000}, async () => {
     console.log('Server up on http://localhost:5000')
+    await sequelize.authenticate()
+    console.log('Connected to database: htm_database')
 })
