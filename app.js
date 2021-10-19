@@ -8,6 +8,9 @@ app.use('/', require('./routes/holbies'))
 // projects endpoints
 app.use('/', require('./routes/projects'))
 
+// capstone projects endpoints
+app.use('/', require('./routes/capstone_projects'))
+
 // companies endpoints
 app.use('/', require('./routes/companies'))
 
