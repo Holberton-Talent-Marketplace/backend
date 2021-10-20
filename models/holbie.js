@@ -32,15 +32,19 @@ module.exports = (sequelize, DataTypes) => {
     },
     location: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
     most_amazing_thing: {
       type: DataTypes.STRING,
+    },
+    technologies: {
+      type: DataTypes.STRING,
       allowNull: false,
     },
-    technologies: DataTypes.STRING,
     industries: DataTypes.STRING,
-    linkedin: DataTypes.STRING,
+    linkedin: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     github: DataTypes.STRING
   }, {
     sequelize,

@@ -13,7 +13,8 @@ module.exports = {
         type: DataTypes.INTEGER
       },
       gender: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        allowNull: false,
       },
       name: {
         type: DataTypes.STRING,
@@ -25,20 +26,20 @@ module.exports = {
       },
       location: {
         type: DataTypes.STRING,
-        allowNull: false,
       },
       most_amazing_thing: {
         type: DataTypes.STRING,
-        allowNull: false,
       },
       technologies: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        allowNull: false,
       },
       industries: {
         type: DataTypes.STRING
       },
       linkedin: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        allowNull: false,
       },
       github: {
         type: DataTypes.STRING
