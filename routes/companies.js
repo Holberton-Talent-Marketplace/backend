@@ -1,12 +1,16 @@
 const express = require('express');
 const router = express.Router();
-const {companies} = require('../models')
+const { companies } = require('../models')
+const validate = require('uuid-validate')
+
+const nullable = ["location", "most_amazing_thing", "industries", "github"]
 
 router.get('/companies', async (req, res) => {
     try {
         const allCompanies = await companies.findAll()
         return res.json(allCompanies)
     } catch (err) {
+        console.error(err)
         return res.status(500).json(err)
     }
 })
@@ -14,47 +18,86 @@ router.get('/companies', async (req, res) => {
 router.get('/companies/:uuid', async (req, res) => {
     try {
         const uuid = req.params.uuid;
-        const company = await companies.findOne({where: {uuid}})
-        return res.json(company)
+        if (validate(uuid, 4)) {
+            const company = await companies.findOne({ where: { uuid } })
+            if (company == null) {
+                return res.status(404).json({ message: "company not found" })
+            } else {
+                return res.json(company)
+            }
+        } else {
+            return res.status(400).json({ message: "uuid not valid" })
+        }
     } catch (err) {
+        console.error(err)
         return res.status(500).json(err)
     }
 })
 
 router.post('/companies', async (req, res) => {
     try {
-        const {name,about_us,location,technologies,contact_link} = req.body
-        const newCompany = await companies.create({name,about_us,location,technologies,contact_link})
+        const { name, about_us, location, technologies, contact_link } = req.body
+        const newCompany = await companies.create({ name, about_us, location, technologies, contact_link })
         return res.json(newCompany)
     } catch (err) {
+        if (err.errors[0].message) {
+            return res.status(400).json({ message: `${err.errors[0].message}` })
+        }
+        console.error(err)
         return res.status(500).json(err)
     }
 })
 
 router.put('/companies/:uuid', async (req, res) => {
+    const uuid = req.params.uuid;
     try {
-        const {name,about_us,location,technologies,contact_link} = req.body
-        const uuid = req.params.uuid;
-        const company = await companies.findOne({where: {uuid}})
-        company.name = name
-        company.about_us = about_us
-        company.location = location
-        company.technologies = technologies
-        company.contact_link = contact_link
-        await company.save()
-        return res.json(company)
+        const notNullableAttributes = { name, about_us, location, technologies, contact_link } = req.body
+        nullable.forEach(element => delete notNullableAttributes[element])
+        console.log(notNullableAttributes)
+        for (let att in notNullableAttributes) {
+            if (notNullableAttributes[att] == null) {
+                return res.status(400).json({ message: `${att} cannot be null` })
+            } else if (notNullableAttributes[att] === "") {
+                return res.status(400).json({ message: `${att} cannot be empty` })
+            }
+        }
+        if (validate(uuid, 4)) {
+            const company = await companies.findOne({ where: { uuid } })
+            if (company == null) {
+                return res.status(404).json({ message: "company not found" })
+            } else {
+                const attributes = { name, about_us, location, technologies, contact_link } = req.body
+                for (let key in attributes) {
+                    company[key] = attributes[key]
+                }
+                await company.save()
+                return res.json(company)
+            }
+        } else {
+            return res.status(400).json({ message: "uuid not valid" })
+        }
     } catch (err) {
+        console.error(err)
         return res.status(500).json(err)
     }
 })
 
 router.delete('/companies/:uuid', async (req, res) => {
+    const uuid = req.params.uuid;
     try {
-        const uuid = req.params.uuid;
-        const company = await companies.findOne({where: {uuid}})
-        await company.destroy()
-        return res.json({ message: "The company has been deleted"})
+        if (validate(uuid, 4)) {
+            const company = await companies.findOne({ where: { uuid } })
+            if (company == null) {
+                return res.status(404).json({ message: "company not found" })
+            } else {
+                await company.destroy()
+                return res.json({ message: "The company has been deleted" })
+            }
+        } else {
+            return res.status(400).json({ message: "uuid not valid" })
+        }
     } catch (err) {
+        console.error(err)
         return res.status(500).json(err)
     }
 })

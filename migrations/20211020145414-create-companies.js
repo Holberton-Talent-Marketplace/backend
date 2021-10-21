@@ -13,16 +13,19 @@ module.exports = {
         defaultValue: DataTypes.UUIDV4
       },
       name: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        allowNull: false,
       },
       about_us: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        allowNull: false,
       },
       location: {
         type: DataTypes.STRING
       },
       technologies: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        allowNull: false,
       },
       contact_link: {
         type: DataTypes.STRING

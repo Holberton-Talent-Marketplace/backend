@@ -3,7 +3,7 @@ const router = express.Router();
 const { holbie } = require('../models')
 const validate = require('uuid-validate');
 
-const notNullable = ["location", "most_amazing_thing", "industries", "github"]
+const nullable = ["location", "most_amazing_thing", "industries", "github"]
 
 router.get('/holbies', async (req, res) => {
     try {
@@ -12,6 +12,7 @@ router.get('/holbies', async (req, res) => {
 
     } catch (err) {
         console.error(err)
+        return res.status(500).json(err)
     }
 })
 
@@ -30,6 +31,7 @@ router.get('/holbies/:uuid', async (req, res) => {
         }
     } catch (err) {
         console.error(err)
+        return res.status(500).json(err)
     }
 })
 
@@ -51,7 +53,7 @@ router.put('/holbies/:uuid', async (req, res) => {
     const uuid = req.params.uuid;
     try {
         const notNullableAttributes = { gender, name, about_me, technologies, linkedin } = req.body
-        notNullable.forEach(element => delete notNullableAttributes[element]);
+        nullable.forEach(element => delete notNullableAttributes[element])
         console.log(notNullableAttributes)
         for (let att in notNullableAttributes) {
             if (notNullableAttributes[att] == null) {
@@ -69,6 +71,7 @@ router.put('/holbies/:uuid', async (req, res) => {
                 for (let key in attributes) {
                     holbieById[key] = attributes[key]
                 }
+                await holbieById.save()
                 return res.json(holbieById)
             }
         } else {
@@ -96,6 +99,7 @@ router.delete('/holbies/:uuid', async (req, res) => {
             return res.status(400).json({ message: "uuid not valid" })
         }
     } catch (err) {
+        console.error(err)
         return res.status(500).json(err)
     }
 })

@@ -18,10 +18,31 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4
     },
-    name: DataTypes.STRING,
-    about_us: DataTypes.STRING,
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: { msg: 'Company must have a name' },
+        notEmpty: { msg: 'Name must not be empty' },
+      },
+    },
+    about_us: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: { msg: 'Company must have a about_us' },
+        notEmpty: { msg: 'about_us must not be empty' },
+      },
+    },
     location: DataTypes.STRING,
-    technologies: DataTypes.STRING,
+    technologies: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: { msg: 'Company must have technologies' },
+        notEmpty: { msg: 'technologies must not be empty' },
+      },
+    },
     contact_link: DataTypes.STRING
   }, {
     sequelize,
