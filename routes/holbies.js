@@ -3,6 +3,7 @@ const router = express.Router();
 const { holbie } = require('../models')
 const validate = require('uuid-validate');
 
+const notNullable = ["location", "most_amazing_thing", "industries", "github"]
 
 router.get('/holbies', async (req, res) => {
     try {
@@ -38,6 +39,10 @@ router.post('/holbies', async (req, res) => {
         const newHolbie = await holbie.create({ gender, name, about_me, location, most_amazing_thing, technologies, industries, linkedin, github })
         return res.json(newHolbie)
     } catch (err) {
+        if (err.errors[0].message) {
+            return res.status(400).json({ message: `${err.errors[0].message}` })
+        }
+        console.error(err)
         return res.status(500).json(err)
     }
 })
@@ -45,6 +50,16 @@ router.post('/holbies', async (req, res) => {
 router.put('/holbies/:uuid', async (req, res) => {
     const uuid = req.params.uuid;
     try {
+        const notNullableAttributes = { gender, name, about_me, technologies, linkedin } = req.body
+        notNullable.forEach(element => delete notNullableAttributes[element]);
+        console.log(notNullableAttributes)
+        for (let att in notNullableAttributes) {
+            if (notNullableAttributes[att] == null) {
+                return res.status(400).json({ message: `${att} cannot be null` })
+            } else if (notNullableAttributes[att] === "") {
+                return res.status(400).json({ message: `${att} cannot be empty` })
+            }
+        }
         if (validate(uuid, 4)) {
             const holbieById = await holbie.findOne({ where: { uuid } })
             if (holbieById == null) {
@@ -52,9 +67,7 @@ router.put('/holbies/:uuid', async (req, res) => {
             } else {
                 const attributes = { gender, name, about_me, location, most_amazing_thing, technologies, industries, linkedin, github } = req.body
                 for (let key in attributes) {
-                    if (attributes[key]) {
-                        holbieById[key] = attributes[key]
-                    }
+                    holbieById[key] = attributes[key]
                 }
                 return res.json(holbieById)
             }
@@ -63,6 +76,7 @@ router.put('/holbies/:uuid', async (req, res) => {
         }
 
     } catch (err) {
+        console.error(err)
         return res.status(500).json(err)
     }
 })

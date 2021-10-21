@@ -21,14 +21,26 @@ module.exports = (sequelize, DataTypes) => {
     gender: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        notNull: { msg: 'Holbie must have a gender' },
+        notEmpty: { msg: 'gender must not be empty' },
+      },
     },
     name: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        notNull: { msg: 'Holbie must have a name' },
+        notEmpty: { msg: 'Name must not be empty' },
+      },
     },
     about_me: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        notNull: { msg: 'Holbie must have a about_me' },
+        notEmpty: { msg: 'about_me must not be empty' },
+      },
     },
     location: {
       type: DataTypes.STRING,
@@ -39,11 +51,19 @@ module.exports = (sequelize, DataTypes) => {
     technologies: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        notNull: { msg: 'Holbie must have technologies' },
+        notEmpty: { msg: 'Technologies must not be empty' },
+      },
     },
     industries: DataTypes.STRING,
     linkedin: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        notNull: { msg: 'Holbie must have a linkedin' },
+        notEmpty: { msg: 'Linkedin must not be empty' },
+      },
     },
     github: DataTypes.STRING
   }, {
