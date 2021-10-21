@@ -50,16 +50,12 @@ router.put('/holbies/:uuid', async (req, res) => {
             if (holbieById == null) {
                 return res.status(404).json({ message: "holbie not found" })
             } else {
-                const { gender, name, about_me, location, most_amazing_thing, technologies, industries, linkedin, github } = req.body
-                holbieById.gender = gender
-                holbieById.name = name
-                holbieById.about_me = about_me
-                holbieById.location = location
-                holbieById.most_amazing_thing = most_amazing_thing
-                holbieById.technologies = technologies
-                holbieById.industries = industries
-                holbieById.linkedin = linkedin
-                holbieById.github = github
+                const attributes = { gender, name, about_me, location, most_amazing_thing, technologies, industries, linkedin, github } = req.body
+                for (let key in attributes) {
+                    if (attributes[key]) {
+                        holbieById[key] = attributes[key]
+                    }
+                }
                 return res.json(holbieById)
             }
         } else {
