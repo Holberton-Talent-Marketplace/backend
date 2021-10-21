@@ -3,7 +3,7 @@ const router = express.Router();
 const { companies } = require('../models')
 const validate = require('uuid-validate')
 
-const nullable = ["location", "most_amazing_thing", "industries", "github"]
+const nullable = ["location", "contact_link"]
 
 router.get('/companies', async (req, res) => {
     try {
