@@ -11,7 +11,7 @@ paths:
       operationId: findHolbies
       responses:
         '200':
-          description: pet response
+          description: holbie response
           content:
             application/json:
               schema:
