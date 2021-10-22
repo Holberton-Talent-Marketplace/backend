@@ -1,0 +1,151 @@
+openapi: '3.0.0'
+info:
+  version: 1.0.0
+  title: Holberton Talent Marketplace API
+  description: Api for the web application.
+paths:
+  /holbies:
+    get:
+      description: |
+        Returns all holbies
+      operationId: findHolbies
+      responses:
+        '200':
+          description: pet response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Holbie'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      description: Creates a new holbie.
+      operationId: addHolbie
+      requestBody:
+        description: Holbie to add to the app
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Holbie'
+      responses:
+        '200':
+          description: holbie response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Holbie'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /holbies/{id}:
+    get:
+      description: Returns a holbie based on id
+      operationId: find holbie by id
+      parameters:
+        - name: id
+          in: path
+          description: ID holbie to fetch
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Holbie response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Holbie'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      description: deletes a single holbie based on the ID supplied
+      operationId: deleteHolbie
+      parameters:
+        - name: id
+          in: path
+          description: ID of pet to delete
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: holbie deleted
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    put:
+      description: Update a holbie based on id
+      operationId: find holbie and update
+      parameters:
+        - name: id
+          in: path
+          description: ID holbie to fetch
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Holbie response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Holbie'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Holbie:
+      required:
+        - name
+        - gender
+        - about_me
+        - technologies
+        - linkedin
+      properties:
+        gender:
+          type: string
+        name:
+          type: string
+        about_me:
+          type: string
+        technologies:
+          type: string
+        linkedin:
+          type: string
+
+    Error:
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
