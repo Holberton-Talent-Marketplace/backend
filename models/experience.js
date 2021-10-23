@@ -15,6 +15,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   experience.init({
+    id: {
+      allowNull: false,
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true,
+      type: DataTypes.UUID
+    },
     name: {
       type: DataTypes.STRING,
       allowNull: false

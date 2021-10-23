@@ -1,13 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const { holbie } = require('../models')
+const { holbie, experience } = require('../models')
 const validate = require('uuid-validate');
 
 const nullable = ["location", "most_amazing_thing", "industries", "github"]
 
 router.get('/holbies', async (req, res) => {
     try {
-        const allHolbies = await holbie.findAll()
+        const allHolbies = await holbie.findAll( { include: 'experiences' })
         return res.json(allHolbies)
 
     } catch (err) {
@@ -20,7 +20,7 @@ router.get('/holbies/:uuid', async (req, res) => {
     const uuid = req.params.uuid;
     try {
         if (validate(uuid, 4)) {
-            const holbieById = await holbie.findByPk(uuid)
+            const holbieById = await holbie.findByPk(uuid, { include: 'experiences' })
             if (holbieById == null) {
                 return res.status(404).json({ message: "holbie not found" })
             } else {

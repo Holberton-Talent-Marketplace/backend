@@ -401,14 +401,18 @@ components:
       required:
       - name
       - description
-      - company_name
+      - companyName
+      - holbieId
       properties:
         name:
           type: string
         description:
           type: string
-        company_name:
+        companyName:
           type: string
+        holbieId:
+          type: string
+          format: uuid
     Error:
       required:
         - code
