@@ -19,7 +19,7 @@ router.get('/companies/:uuid', async (req, res) => {
     try {
         const uuid = req.params.uuid;
         if (validate(uuid, 4)) {
-            const company = await companies.findOne({ where: { uuid } })
+            const company = await companies.findByPk(uuid)
             if (company == null) {
                 return res.status(404).json({ message: "company not found" })
             } else {
@@ -62,7 +62,7 @@ router.put('/companies/:uuid', async (req, res) => {
             }
         }
         if (validate(uuid, 4)) {
-            const company = await companies.findOne({ where: { uuid } })
+            const company = await companies.findByPk(uuid)
             if (company == null) {
                 return res.status(404).json({ message: "company not found" })
             } else {
@@ -86,7 +86,7 @@ router.delete('/companies/:uuid', async (req, res) => {
     const uuid = req.params.uuid;
     try {
         if (validate(uuid, 4)) {
-            const company = await companies.findOne({ where: { uuid } })
+            const company = await companies.findByPk(uuid)
             if (company == null) {
                 return res.status(404).json({ message: "company not found" })
             } else {

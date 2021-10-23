@@ -93,7 +93,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-
     put:
       description: Update a holbie based on id
       operationId: find holbie and update
@@ -112,6 +111,119 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Holbie'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /companies:
+    get:
+      description: |
+        Returns all companies
+      operationId: findcompanies
+      responses:
+        '200':
+          description: company response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Company'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      description: Creates a new company.
+      operationId: addCompany
+      requestBody:
+        description: Company to add to the app
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Company'
+      responses:
+        '200':
+          description: company response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Company'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /companies/{id}:
+    get:
+      description: Returns a company based on id
+      operationId: find company by id
+      parameters:
+        - name: id
+          in: path
+          description: ID holbie to fetch
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Holbie response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Company'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      description: deletes a single company based on the ID supplied
+      operationId: deleteCompany
+      parameters:
+        - name: id
+          in: path
+          description: ID of pet to delete
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: holbie deleted
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      description: Update a company based on id
+      operationId: find company and update
+      parameters:
+        - name: id
+          in: path
+          description: ID company to fetch
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Holbie response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Company'
         default:
           description: unexpected error
           content:
@@ -155,7 +267,22 @@ components:
         github:
           type: string
           example: https://github.com/Juansu01
-
+    Company:
+      required:
+      - name
+      - about_us
+      - technologies
+      properties:
+        name:
+          type: string
+        about_us:
+          type: string
+        location:
+          type: string
+        technologies:
+          type: string
+        contact_link:
+          type: string
     Error:
       required:
         - code
