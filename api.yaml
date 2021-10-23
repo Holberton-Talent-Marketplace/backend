@@ -79,7 +79,7 @@ paths:
       parameters:
         - name: id
           in: path
-          description: ID of pet to delete
+          description: ID of holbie to delete
           required: true
           schema:
             type: string
@@ -192,7 +192,7 @@ paths:
       parameters:
         - name: id
           in: path
-          description: ID of pet to delete
+          description: ID of company to delete
           required: true
           schema:
             type: string
@@ -219,7 +219,7 @@ paths:
             format: uuid
       responses:
         '200':
-          description: Holbie response
+          description: company response
           content:
             application/json:
               schema:
@@ -263,7 +263,7 @@ paths:
               $ref: '#/components/schemas/Experience'
       responses:
         '200':
-          description: company response
+          description: experience response
           content:
             application/json:
               schema:
@@ -282,7 +282,7 @@ paths:
       parameters:
         - name: id
           in: path
-          description: ID holbie to fetch
+          description: ID experience to fetch
           required: true
           schema:
             type: string
@@ -306,14 +306,14 @@ paths:
       parameters:
         - name: id
           in: path
-          description: ID of pet to delete
+          description: ID of experience to delete
           required: true
           schema:
             type: string
             format: uuid
       responses:
         '204':
-          description: company deleted
+          description: experience deleted
         default:
           description: unexpected error
           content:
@@ -321,19 +321,19 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
     put:
-      description: Update a company based on id
+      description: Update a experience based on id
       operationId: find experience and update
       parameters:
         - name: id
           in: path
-          description: ID company to fetch
+          description: ID experience to fetch
           required: true
           schema:
             type: string
             format: uuid
       responses:
         '200':
-          description: Holbie response
+          description: experience response
           content:
             application/json:
               schema:
@@ -344,6 +344,121 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+                
+  /projects:
+    get:
+      description: |
+        Returns all projects
+      operationId: find projects
+      responses:
+        '200':
+          description: project response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Project'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      description: Creates a new holbie.
+      operationId: addProject
+      requestBody:
+        description: Project to add to the app
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Project'
+      responses:
+        '200':
+          description: project response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /projects/{id}:
+    get:
+      description: Returns a project based on id
+      operationId: find project by id
+      parameters:
+        - name: id
+          in: path
+          description: ID project to fetch
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Project response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      description: deletes a single project based on the ID supplied
+      operationId: deleteProject
+      parameters:
+        - name: id
+          in: path
+          description: ID of project to delete
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: project deleted
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      description: Update a project based on id
+      operationId: find project and update
+      parameters:
+        - name: id
+          in: path
+          description: ID project to fetch
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: project response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
 components:
   schemas:
     Holbie:
@@ -409,6 +524,25 @@ components:
         description:
           type: string
         companyName:
+          type: string
+        holbieId:
+          type: string
+          format: uuid
+    Project:
+      required:
+      - name
+      - technologiesUsed
+      - description
+      - linkToProject
+      - holbieId
+      properties:
+        name:
+          type: string
+        technologiesUsed:
+          type: string
+        description:
+          type: string
+        linkToProject:
           type: string
         holbieId:
           type: string
