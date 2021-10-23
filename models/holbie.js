@@ -14,9 +14,11 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   holbie.init({
-    uuid: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4
+    id: {
+      allowNull: false,
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true,
+      type: DataTypes.UUID
     },
     gender: {
       type: DataTypes.STRING,
@@ -46,6 +48,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
     },
     most_amazing_thing: {
+      type: DataTypes.STRING,
+    },
+    previous_education: {
       type: DataTypes.STRING,
     },
     technologies: {

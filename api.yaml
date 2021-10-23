@@ -11,7 +11,7 @@ paths:
       operationId: findHolbies
       responses:
         '200':
-          description: pet response
+          description: holbie response
           content:
             application/json:
               schema:
@@ -130,14 +130,31 @@ components:
       properties:
         gender:
           type: string
+          example: Male
         name:
           type: string
+          example: Juan Camilo Cadavid Velásquez
         about_me:
           type: string
+          example: Student at Holberton School
+        locaion:
+          type: string
+          example: Medellín, Colombia
+        most_amazing_thing:
+          type: string
+          example: I reached English fluency at a very early age, becoming the first bilingual person in my family.
+        previous_education:
+          type: string
+          example: No preivous education
         technologies:
           type: string
+          example: Python, C, JavaScript, Node.js, MySQL, PostgreSQL
         linkedin:
           type: string
+          example: https://www.linkedin.com/in/juan-camilo-cadavid-velásquez-682b94205/
+        github:
+          type: string
+          example: https://github.com/Juansu01
 
     Error:
       required:
