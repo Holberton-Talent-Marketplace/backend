@@ -34,6 +34,9 @@ app.use('/', require('./routes/recruiters'))
 // holbieList endpoint
 app.use('/', require('./routes/holbie_list'))
 
+// experiences endopoint
+app.use('/', require('./routes/experiences'))
+
 app.use((err, req, res, next) => {
     // 7. Customize errors
     console.error(err); // dump error to console for debug
