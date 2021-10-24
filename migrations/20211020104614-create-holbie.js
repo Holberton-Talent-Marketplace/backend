@@ -43,6 +43,9 @@ module.exports = {
       github: {
         type: DataTypes.STRING(200)
       },
+      capstoneProjectId: {
+        type: DataTypes.UUID,
+      },
       createdAt: {
         allowNull: false,
         type: DataTypes.DATE

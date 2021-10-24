@@ -665,6 +665,7 @@ components:
       - technologies
       - description
       - companyId
+      - holbiesCohort
       properties:
         name:
           type: string
@@ -678,6 +679,8 @@ components:
         holbieId:
           type: string
           format: uuid
+        holbiesCohort:
+          type: integer
     Error:
       required:
         - code

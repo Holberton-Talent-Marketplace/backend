@@ -7,7 +7,7 @@ const nullable = ["location", "most_amazing_thing", "industries", "github"]
 
 router.get('/holbies', async (req, res) => {
     try {
-        const allHolbies = await holbie.findAll( { include: 'experiences' })
+        const allHolbies = await holbie.findAll( { include: ['experiences', 'projects', 'capstoneProjects'] })
         return res.json(allHolbies)
 
     } catch (err) {
@@ -37,13 +37,11 @@ router.get('/holbies/:uuid', async (req, res) => {
 
 router.post('/holbies', async (req, res) => {
     try {
+        const capId = req.body.capstoneProjectId
         const { gender, name, about_me, location, most_amazing_thing, technologies, industries, linkedin, github } = req.body
-        const newHolbie = await holbie.create({ gender, name, about_me, location, most_amazing_thing, technologies, industries, linkedin, github })
+        const newHolbie = await holbie.create({ gender, name, about_me, location, most_amazing_thing, technologies, industries, linkedin, github, capstoneProjectId: capId })
         return res.json(newHolbie)
     } catch (err) {
-        if (err.errors[0].message) {
-            return res.status(400).json({ message: `${err.errors[0].message}` })
-        }
         console.error(err)
         return res.status(500).json(err)
     }

@@ -9,10 +9,11 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate({ experience, projects }) {
+    static associate({ experience, projects, capstone_projects }) {
       // define association here
       this.hasMany(experience, { foreignKey: 'holbieId', as: 'experiences' })
       this.hasMany(projects, { foreignKey: 'holbieId', as: 'projects' })
+      this.belongsTo(capstone_projects, { foreignKey: 'capstoneProjectId', as: 'capstoneProjects' })
     }
   };
   holbie.init({
@@ -72,7 +73,10 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: { msg: 'Linkedin must not be empty' },
       },
     },
-    github: DataTypes.STRING
+    github: DataTypes.STRING,
+    capstoneProjectId: {
+      type: DataTypes.UUID,
+    },
   }, {
     sequelize,
     modelName: 'holbie',
