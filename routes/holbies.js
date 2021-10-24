@@ -20,7 +20,7 @@ router.get('/holbies/:uuid', async (req, res) => {
     const uuid = req.params.uuid;
     try {
         if (validate(uuid, 4)) {
-            const holbieById = await holbie.findByPk(uuid, { include: 'experiences' })
+            const holbieById = await holbie.findByPk(uuid, { include: ['experiences', 'projects', 'capstoneProjects'] })
             if (holbieById == null) {
                 return res.status(404).json({ message: "holbie not found" })
             } else {
@@ -65,7 +65,7 @@ router.put('/holbies/:uuid', async (req, res) => {
             if (holbieById == null) {
                 return res.status(404).json({ message: "holbie not found" })
             } else {
-                const attributes = { gender, name, about_me, location, most_amazing_thing, technologies, industries, linkedin, github } = req.body
+                const attributes = { gender, name, about_me, location, strengths, skills, most_amazing_thing, technologies, industries, linkedin, github } = req.body
                 for (let key in attributes) {
                     holbieById[key] = attributes[key]
                 }

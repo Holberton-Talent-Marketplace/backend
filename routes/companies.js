@@ -7,7 +7,7 @@ const nullable = ["location", "contact_link"]
 
 router.get('/companies', async (req, res) => {
     try {
-        const allCompanies = await companies.findAll()
+        const allCompanies = await companies.findAll({ include: "capstone_projects" })
         return res.json(allCompanies)
     } catch (err) {
         console.error(err)
@@ -19,7 +19,7 @@ router.get('/companies/:uuid', async (req, res) => {
     try {
         const uuid = req.params.uuid;
         if (validate(uuid, 4)) {
-            const company = await companies.findByPk(uuid)
+            const company = await companies.findByPk(uuid, { include: "capstone_projects" } )
             if (company == null) {
                 return res.status(404).json({ message: "company not found" })
             } else {
@@ -40,9 +40,6 @@ router.post('/companies', async (req, res) => {
         const newCompany = await companies.create({ name, about_us, location, technologies, contact_link })
         return res.json(newCompany)
     } catch (err) {
-        if (err.errors[0].message) {
-            return res.status(400).json({ message: `${err.errors[0].message}` })
-        }
         console.error(err)
         return res.status(500).json(err)
     }

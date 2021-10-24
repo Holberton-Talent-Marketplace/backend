@@ -13,14 +13,14 @@ module.exports = {
         allowNull: false,
       },
       about_us: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(500),
         allowNull: false,
       },
       location: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING(500)
       },
       technologies: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(500),
         allowNull: false,
       },
       contact_link: {

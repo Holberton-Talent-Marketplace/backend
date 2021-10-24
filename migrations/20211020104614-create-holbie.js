@@ -23,6 +23,12 @@ module.exports = {
       location: {
         type: DataTypes.STRING(50),
       },
+      strengths: {
+        type: DataTypes.STRING(500),
+      },
+      skills: {
+        type: DataTypes.STRING(500),
+      },
       most_amazing_thing: {
         type: DataTypes.STRING(500),
       },

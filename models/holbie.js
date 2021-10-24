@@ -11,8 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate({ experience, projects, capstone_projects }) {
       // define association here
-      this.hasMany(experience, { foreignKey: 'holbieId', as: 'experiences' })
-      this.hasMany(projects, { foreignKey: 'holbieId', as: 'projects' })
+      this.hasMany(experience, { foreignKey: 'holbieId', onDelete: 'cascade', hooks: true, as: 'experiences' })
+      this.hasMany(projects, { foreignKey: 'holbieId', onDelete: 'cascade', hooks: true, as: 'projects' })
       this.belongsTo(capstone_projects, { foreignKey: 'capstoneProjectId', as: 'capstoneProjects' })
     }
   };
@@ -50,6 +50,12 @@ module.exports = (sequelize, DataTypes) => {
     location: {
       type: DataTypes.STRING,
     },
+    strengths: {
+      type: DataTypes.STRING,
+    },
+    skills: {
+      type: DataTypes.STRING,
+    },
     most_amazing_thing: {
       type: DataTypes.STRING,
     },
@@ -59,10 +65,6 @@ module.exports = (sequelize, DataTypes) => {
     technologies: {
       type: DataTypes.STRING,
       allowNull: false,
-      validate: {
-        notNull: { msg: 'Holbie must have technologies' },
-        notEmpty: { msg: 'Technologies must not be empty' },
-      },
     },
     industries: DataTypes.STRING,
     linkedin: {
@@ -73,7 +75,9 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: { msg: 'Linkedin must not be empty' },
       },
     },
-    github: DataTypes.STRING,
+    github: {
+      type: DataTypes.STRING
+    },
     capstoneProjectId: {
       type: DataTypes.UUID,
     },

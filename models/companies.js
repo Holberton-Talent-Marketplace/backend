@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate( { capstone_projects } ) {
       // define association here
-      this.hasMany(capstone_projects, { foreignKey: 'companyId', as: 'capstone_projects' })
+      this.hasMany(capstone_projects, { foreignKey: 'companyId', onDelete: 'cascade', hooks: true, as: 'capstone_projects' })
     }
   };
   companies.init({
