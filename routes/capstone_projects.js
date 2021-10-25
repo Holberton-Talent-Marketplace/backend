@@ -4,7 +4,7 @@ const { capstone_projects } = require('../models')
 
 router.get('/capstone_projects', async (req, res) => {
     try {
-        const allCapstoneProjects = await capstone_projects.findAll({ include: ['company', 'holbies' ]})
+        const allCapstoneProjects = await capstone_projects.findAll({ include: ['company', 'holbies'] })
         return res.json(allCapstoneProjects)
     } catch (err) {
         console.error(err)
@@ -15,7 +15,7 @@ router.get('/capstone_projects', async (req, res) => {
 router.get('/capstone_projects/:uuid', async (req, res) => {
     const uuid = req.params.uuid
     try {
-        const capstoneProjectById = await capstone_projects.findByPk(uuid)
+        const capstoneProjectById = await capstone_projects.findByPk(uuid, { include: ['company', 'holbies'] })
         if (capstoneProjectById) {
             return res.json(capstoneProjectById)
         } else {

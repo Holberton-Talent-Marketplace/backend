@@ -34,7 +34,7 @@ router.post('/projects', async (req, res) => {
         const holbieById = await holbie.findByPk(id)
         if (holbieById) {
             console.log("Holbie found")
-            console.log({ name, technologiesUsed, description, linkToProject })
+            console.log({ name, technologiesUsed, description, linkToProject,  })
             const newProjects = await projects.create({ name, technologiesUsed, description, linkToProject, holbieId: holbieById.id })
             return res.json(newProjects)
         } else {
@@ -51,7 +51,7 @@ router.put('/projects/:id', async (req, res) => {
     try {
         const project = await projects.findByPk(id)
         if (project) {
-            const attributes = { name, technologiesUsed, description, linkToProject } = req.body
+            const attributes = { name, technologiesUsed, description, linkToProject, holbieId } = req.body
             for (let key in attributes) {
                 project[key] = attributes[key]
             }

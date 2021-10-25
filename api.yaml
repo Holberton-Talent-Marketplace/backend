@@ -608,6 +608,9 @@ components:
         github:
           type: string
           example: https://github.com/Juansu01
+        capstoneProjectId:
+          type: string
+          format: uuid
     Company:
       required:
       - name

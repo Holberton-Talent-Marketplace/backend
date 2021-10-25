@@ -52,7 +52,7 @@ router.put('/experiences/:id', async (req, res) => {
     try {
         const experienceById = await experience.findByPk(id)
         if (experienceById) {
-            const attributes = { name, description, companyName } = req.body
+            const attributes = { name, description, companyName, holbieId } = req.body
             for (let key in attributes) {
                 experienceById[key] = attributes[key]
             }
