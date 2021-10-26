@@ -3,7 +3,9 @@ const app = express()
 const { sequelize } = require('./models');
 const path = require('path');
 const OpenApiValidator = require('express-openapi-validator');
+const cors = require("cors");
 
+app.use(cors());
 app.use(express.json())
 
 const spec = path.join(__dirname, 'api.yaml');
