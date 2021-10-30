@@ -99,18 +99,14 @@ paths:
       parameters:
         - name: id
           in: path
-          description: ID holbie to fetch
+          description: ID of holbie to delete
           required: true
           schema:
             type: string
             format: uuid
       responses:
-        '200':
-          description: Holbie response
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Holbie'
+        '204':
+          description: holbie updated
         default:
           description: unexpected error
           content:
