@@ -44,7 +44,7 @@ router.post('/holbies', async (req, res) => {
         const newHolbie = await holbie.create({ gender, name, about_me, location, most_amazing_thing, technologies, industries, linkedin, github, capstoneProjectId: capId })
         if (req.files) {
             console.log(req.files[0].buffer)
-            fs.writeFile(`../../../Desktop/Techstars Project/frontend/react-auth0-intro/public/profile_pictures/${newHolbie.id}.png`, req.files[0].buffer, function (err) {
+            fs.writeFile(`../../Techstars Project/frontend/holberton_talent_marketplace/src/profile_pitures/${newHolbie.id}.png`, req.files[0].buffer, function (err) {
                 if (err) {
                     return console.log(err);
                 }
