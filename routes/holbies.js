@@ -40,8 +40,8 @@ router.get('/holbies/:uuid', async (req, res) => {
 router.post('/holbies', async (req, res) => {
     try {
         const capId = req.body.capstoneProjectId
-        const { gender, name, about_me, location, most_amazing_thing, technologies, industries, linkedin, github } = req.body
-        const newHolbie = await holbie.create({ gender, name, about_me, location, most_amazing_thing, technologies, industries, linkedin, github, capstoneProjectId: capId })
+        const { gender, name, about_me, location, most_amazing_thing, technologies, industries, linkedin, github, strengths, skills, previous_education } = req.body
+        const newHolbie = await holbie.create({ gender, name, about_me, location, most_amazing_thing, technologies, industries, linkedin, github, capstoneProjectId: capId, strengths, skills, previous_education })
         if (req.files) {
             console.log(req.files[0].buffer)
             fs.writeFile(`../../Techstars Project/frontend/holberton_talent_marketplace/src/profile_pitures/${newHolbie.id}.png`, req.files[0].buffer, function (err) {
@@ -71,6 +71,15 @@ router.put('/holbies/:uuid', async (req, res) => {
 
                 for (let key in attributes) {
                     holbieById[key] = attributes[key]
+                }
+                if (req.files) {
+                    console.log(req.files[0].buffer)
+                    fs.writeFile(`../../Techstars Project/frontend/holberton_talent_marketplace/src/profile_pitures/${holbieById.id}.png`, req.files[0].buffer, function (err) {
+                        if (err) {
+                            return console.log(err);
+                        }
+                        console.log("The file was saved!");
+                    });
                 }
                 await holbieById.save()
                 return res.json(holbieById)
