@@ -1,0 +1,703 @@
+openapi: '3.0.0'
+info:
+  version: 1.0.0
+  title: Holberton Talent Marketplace API
+  description: Api for the web application.
+paths:
+  /holbies:
+    get:
+      description: |
+        Returns all holbies
+      operationId: findHolbies
+      responses:
+        '200':
+          description: holbie response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Holbie'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      description: Creates a new holbie.
+      operationId: addHolbie
+      requestBody:
+        description: Holbie to add to the app
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Holbie'
+      responses:
+        '200':
+          description: holbie response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Holbie'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /holbies/{id}:
+    get:
+      description: Returns a holbie based on id
+      operationId: find holbie by id
+      parameters:
+        - name: id
+          in: path
+          description: ID holbie to fetch
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Holbie response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Holbie'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      description: deletes a single holbie based on the ID supplied
+      operationId: deleteHolbie
+      parameters:
+        - name: id
+          in: path
+          description: ID of holbie to delete
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: holbie deleted
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      description: Update a holbie based on id
+      operationId: find holbie and update
+      requestBody:
+        description: Holbie to update in the app
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/HolbiePut'
+      parameters:
+        - name: id
+          in: path
+          description: ID of holbie to update
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: holbie updated
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /companies:
+    get:
+      description: |
+        Returns all companies
+      operationId: findcompanies
+      responses:
+        '200':
+          description: company response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Company'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      description: Creates a new company.
+      operationId: addCompany
+      requestBody:
+        description: Company to add to the app
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Company'
+      responses:
+        '200':
+          description: company response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Company'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /companies/{id}:
+    get:
+      description: Returns a company based on id
+      operationId: find company by id
+      parameters:
+        - name: id
+          in: path
+          description: ID holbie to fetch
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Holbie response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Company'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      description: deletes a single company based on the ID supplied
+      operationId: deleteCompany
+      parameters:
+        - name: id
+          in: path
+          description: ID of company to delete
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: company deleted
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      description: Update a company based on id
+      operationId: find company and update
+      parameters:
+        - name: id
+          in: path
+          description: ID company to fetch
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: company response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Company'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+                
+  /experiences:
+    get:
+      description: |
+        Returns all companies
+      operationId: find experiences
+      responses:
+        '200':
+          description: experience response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Experience'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      description: Creates a new experience.
+      operationId: addExperience
+      requestBody:
+        description: Experience to add to the app
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Experience'
+      responses:
+        '200':
+          description: experience response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Experience'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /experiences/{id}:
+    get:
+      description: Returns a experience based on id
+      operationId: findExperience
+      parameters:
+        - name: id
+          in: path
+          description: ID experience to fetch
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Holbie response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Experience'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      description: deletes a single experience based on the ID supplied
+      operationId: deleteExperience
+      parameters:
+        - name: id
+          in: path
+          description: ID of experience to delete
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: experience deleted
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      description: Update a experience based on id
+      operationId: find experience and update
+      parameters:
+        - name: id
+          in: path
+          description: ID experience to fetch
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: experience response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Experience'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /projects:
+    get:
+      description: |
+        Returns all projects
+      operationId: find projects
+      responses:
+        '200':
+          description: project response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Project'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      description: Creates a new holbie.
+      operationId: addProject
+      requestBody:
+        description: Project to add to the app
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Project'
+      responses:
+        '200':
+          description: project response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /projects/{id}:
+    get:
+      description: Returns a project based on id
+      operationId: find project by id
+      parameters:
+        - name: id
+          in: path
+          description: ID project to fetch
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Project response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      description: deletes a single project based on the ID supplied
+      operationId: deleteProject
+      parameters:
+        - name: id
+          in: path
+          description: ID of project to delete
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: project deleted
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      description: Update a project based on id
+      operationId: find project and update
+      parameters:
+        - name: id
+          in: path
+          description: ID project to fetch
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: project response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /capstone_projects:
+    get:
+      description: |
+        Returns all companies
+      operationId: find CapstoneProject
+      responses:
+        '200':
+          description: CapstoneProject response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CapstoneProject'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      description: Creates a new CapstoneProject.
+      operationId: addCapstoneProject
+      requestBody:
+        description: CapstoneProject to add to the app
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CapstoneProject'
+      responses:
+        '200':
+          description: company response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CapstoneProject'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /capstone_projects/{id}:
+    get:
+      description: Returns a CapstoneProject based on id
+      operationId: findCapstoneProject
+      parameters:
+        - name: id
+          in: path
+          description: ID holbie to fetch
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Holbie response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CapstoneProject'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      description: deletes a single CapstoneProject based on the ID supplied
+      operationId: deleteCapstoneProject
+      parameters:
+        - name: id
+          in: path
+          description: ID of pet to delete
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: company deleted
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      description: Update a company based on id
+      operationId: find CapstoneProject and update
+      parameters:
+        - name: id
+          in: path
+          description: ID company to fetch
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Holbie response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CapstoneProject'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    HolbiePut:
+      properties:
+        name:
+          type: string
+    Holbie:
+      required:
+        - name
+        - gender
+        - about_me
+        - technologies
+        - linkedin
+      properties:
+        gender:
+          type: string
+          example: Male
+        name:
+          type: string
+          example: Juan Camilo Cadavid Velásquez
+        about_me:
+          type: string
+          example: Student at Holberton School
+        locaion:
+          type: string
+          example: Medellín, Colombia
+        most_amazing_thing:
+          type: string
+          example: I reached English fluency at a very early age, becoming the first bilingual person in my family.
+        previous_education:
+          type: string
+          example: No preivous education
+        technologies:
+          type: string
+          example: Python, C, JavaScript, Node.js, MySQL, PostgreSQL
+        linkedin:
+          type: string
+          example: https://www.linkedin.com/in/juan-camilo-cadavid-velásquez-682b94205/
+        github:
+          type: string
+          example: https://github.com/Juansu01
+        capstoneProjectId:
+          type: string
+          format: uuid
+    Company:
+      required:
+      - name
+      - about_us
+      - technologies
+      properties:
+        name:
+          type: string
+        about_us:
+          type: string
+        location:
+          type: string
+        technologies:
+          type: string
+        contact_link:
+          type: string
+    Experience:
+      required:
+      - name
+      - description
+      - companyName
+      - holbieId
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        companyName:
+          type: string
+        holbieId:
+          type: string
+          format: uuid
+    Project:
+      required:
+      - name
+      - technologiesUsed
+      - description
+      - linkToProject
+      - holbieId
+      properties:
+        name:
+          type: string
+        technologiesUsed:
+          type: string
+        description:
+          type: string
+        linkToProject:
+          type: string
+        holbieId:
+          type: string
+          format: uuid
+    CapstoneProject:
+      required:
+      - name
+      - technologies
+      - description
+      - companyId
+      - holbiesCohort
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        technologies:
+          type: string
+        companyId:
+          type: string
+          format: uuid
+        holbieId:
+          type: string
+          format: uuid
+        holbiesCohort:
+          type: integer
+    Error:
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
