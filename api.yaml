@@ -102,7 +102,7 @@ paths:
         content:
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/Holbie'
+              $ref: '#/components/schemas/HolbiePut'
       parameters:
         - name: id
           in: path
@@ -147,7 +147,7 @@ paths:
         description: Company to add to the app
         required: true
         content:
-          application/json:
+          multipart/form-data:
             schema:
               $ref: '#/components/schemas/Company'
       responses:
@@ -576,6 +576,10 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    HolbiePut:
+      properties:
+        name:
+          type: string
     Holbie:
       required:
         - name

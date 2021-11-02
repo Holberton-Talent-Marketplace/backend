@@ -17,7 +17,7 @@ module.exports = {
         allowNull: false,
       },
       about_me: {
-        type: DataTypes.STRING(500),
+        type: DataTypes.STRING(700),
         allowNull: false,
       },
       location: {

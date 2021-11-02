@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { companies } = require('../models')
 const validate = require('uuid-validate')
+const fs = require('fs');
 
 const nullable = ["location", "contact_link"]
 
@@ -38,6 +39,17 @@ router.post('/companies', async (req, res) => {
     try {
         const { name, about_us, location, technologies, contact_link } = req.body
         const newCompany = await companies.create({ name, about_us, location, technologies, contact_link })
+        if (req.files) {
+            console.log("AHHHHHHHHHH")
+                console.log(req.files)
+            console.log(req.files[0].buffer)
+            fs.writeFile(`../../Techstars Project/frontend/holberton_talent_marketplace/src/profile_pitures/${newCompany.id}.png`, req.files[0].buffer, function (err) {
+                if (err) {
+                    return console.log(err);
+                }
+                console.log("The file was saved!");
+            });
+        }
         return res.json(newCompany)
     } catch (err) {
         console.error(err)
@@ -48,16 +60,6 @@ router.post('/companies', async (req, res) => {
 router.put('/companies/:uuid', async (req, res) => {
     const uuid = req.params.uuid;
     try {
-        const notNullableAttributes = { name, about_us, location, technologies, contact_link } = req.body
-        nullable.forEach(element => delete notNullableAttributes[element])
-        console.log(notNullableAttributes)
-        for (let att in notNullableAttributes) {
-            if (notNullableAttributes[att] == null) {
-                return res.status(400).json({ message: `${att} cannot be null` })
-            } else if (notNullableAttributes[att] === "") {
-                return res.status(400).json({ message: `${att} cannot be empty` })
-            }
-        }
         if (validate(uuid, 4)) {
             const company = await companies.findByPk(uuid)
             if (company == null) {
@@ -66,6 +68,15 @@ router.put('/companies/:uuid', async (req, res) => {
                 const attributes = { name, about_us, location, technologies, contact_link } = req.body
                 for (let key in attributes) {
                     company[key] = attributes[key]
+                }
+                if (req.files) {
+                    console.log(req.files[0].buffer)
+                    fs.writeFile(`../../Techstars Project/frontend/holberton_talent_marketplace/src/profile_pitures/${company.id}.png`, req.files[0].buffer, function (err) {
+                        if (err) {
+                            return console.log(err);
+                        }
+                        console.log("The file was saved!");
+                    });
                 }
                 await company.save()
                 return res.json(company)
