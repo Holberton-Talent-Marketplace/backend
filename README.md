@@ -227,7 +227,7 @@ Make sure to send your request using the Content-Type: form-data
     "previous_education": "No preivous education",
     "updatedAt": "2022-03-22T19:36:33.061Z",
     "createdAt": "2022-03-22T19:36:33.061Z"
-}
+    }
 
 ## Get a specific Holbie
 
