@@ -1,0 +1,33 @@
+{
+  "name": "htm_api",
+  "version": "1.0.0",
+  "description": "This is the rest api for our final project",
+  "main": "app.js",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-openapi-validator": "^4.13.6",
+    "pg": "^8.7.1",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.7.0",
+    "uuid-validate": "0.0.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Holberton-Talent-Marketplace/backend.git"
+  },
+  "keywords": [
+    "API",
+    "database"
+  ],
+  "contributors": ["Juan Camilo Cadavid", "Andrea Castrillón", "Liliana Sepúlveda"],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Holberton-Talent-Marketplace/backend/issues"
+  },
+  "homepage": "https://github.com/Holberton-Talent-Marketplace/backend#readme"
+}
