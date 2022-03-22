@@ -72,17 +72,20 @@ router.put('/holbies/:uuid', async (req, res) => {
                 for (let key in attributes) {
                     holbieById[key] = attributes[key]
                 }
-                if (req.files) {
-                    console.log(req.files[0].buffer)
+
+                try  {
                     fs.writeFile(`../../Techstars Project/frontend/holberton_talent_marketplace/src/profile_pitures/${holbieById.id}.png`, req.files[0].buffer, function (err) {
                         if (err) {
                             return console.log(err);
                         }
                         console.log("The file was saved!");
                     });
+                    await holbieById.save()
+                    return res.json(holbieById)
+                } catch {
+                    await holbieById.save()
+                    return res.json(holbieById)
                 }
-                await holbieById.save()
-                return res.json(holbieById)
             }
         } else {
             return res.status(400).json({ message: "uuid not valid" })
